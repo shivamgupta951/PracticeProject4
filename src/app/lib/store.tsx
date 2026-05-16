@@ -1,11 +1,15 @@
-import React from 'react'
+// Inside ./src/app/lib/store.tsx
+import { configureStore } from "@reduxjs/toolkit";
+import CounterReducer from "./CounterSlice"; // Ensures it looks in the same lib folder
 
-const store = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+export const makeStore = () => {
+  return configureStore({
+    reducer: {
+      Counter: CounterReducer,
+    },
+  });
+};
 
-export default store
+export type AppStore = ReturnType<typeof makeStore>;
+export type RootState = ReturnType<AppStore["getState"]>;
+export type AppDispatch = AppStore["dispatch"];
